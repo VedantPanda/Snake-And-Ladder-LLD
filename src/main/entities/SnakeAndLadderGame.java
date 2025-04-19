@@ -101,18 +101,30 @@ public class SnakeAndLadderGame implements BoardGames {
 
     @Override
     public void play() {
+        snakeAndLadderBoard.displayBoard();
+        int boardSize = snakeAndLadderBoard.getBoard().length;
         while (winner == null){
             Player currPlayer = players.removeFirst();
-            int newPosition = currPlayer.getCurrentPosition() + dice.rollDice();
+            System.out.println("Player "+currPlayer.getName()+" with id "+currPlayer.getId()+" is rolling the dice");
+            int diceNumber = dice.rollDice();
+            System.out.println("Number on the dice is "+diceNumber);
+            int newPosition = currPlayer.getCurrentPosition() + diceNumber;
+            if(newPosition >= boardSize*boardSize){
+                System.out.println("Ran out of the board so no movement");
+                players.addLast(currPlayer);
+                continue;
+            }
             Cell cell = getCell(newPosition, snakeAndLadderBoard.getBoard());
             if(cell!=null && cell.getJumper()!=null && newPosition==cell.getJumper().getStart()){
+                System.out.println("Found "+cell.getJumper().getSnakeLadderIdentifier()+" at "+newPosition);
                 currPlayer.setCurrentPosition(cell.getJumper().getEnd());
+                System.out.println("Moving to position "+cell.getJumper().getEnd());
             }
             else{
                 currPlayer.setCurrentPosition(newPosition);
+                System.out.println("Moving to position "+newPosition);
             }
-            int boardSize = snakeAndLadderBoard.getBoard().length;
-            if(currPlayer.getCurrentPosition()==boardSize*boardSize){
+            if(currPlayer.getCurrentPosition()==(boardSize*boardSize)-1){
                 winner = currPlayer;
             }
             else{
@@ -123,6 +135,6 @@ public class SnakeAndLadderGame implements BoardGames {
     }
 
     private void announceResult() {
-        System.out.println("Winner is "+winner.getName()+" id "+winner.getId());
+        System.out.println("Winner is "+winner.getName()+" with id "+winner.getId());
     }
 }

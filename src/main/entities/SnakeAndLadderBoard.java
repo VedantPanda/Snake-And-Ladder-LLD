@@ -42,6 +42,19 @@ public class SnakeAndLadderBoard {
         }
     }
 
+    public void displayBoard(){
+        for (Cell[] cells : board) {
+            for (Cell cell : cells) {
+                if (cell != null) {
+                    System.out.print(cell.getJumper().getSnakeLadderIdentifier().toString() + " ");
+                } else {
+                    System.out.print(null + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public Cell[][] getBoard() {
         return board;
     }
