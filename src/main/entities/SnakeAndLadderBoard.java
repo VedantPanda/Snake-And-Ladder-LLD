@@ -10,9 +10,22 @@ public class SnakeAndLadderBoard {
 
     private final Cell[][] board;
 
-    public SnakeAndLadderBoard(int size, int noOfSnakes, int noOfLadders) {
+    public static SnakeAndLadderBoard snakeAndLadderBoardInstance;
+
+    private SnakeAndLadderBoard(int size, int noOfSnakes, int noOfLadders) {
         board = new Cell[size][size];
         initializeSnakeAndLadderOnBoard(noOfSnakes, noOfLadders);
+    }
+
+    public static SnakeAndLadderBoard getSnakeAndLadderBoardInstance(int size, int noOfSnakes, int noOfLadders) {
+        if(snakeAndLadderBoardInstance==null) {
+            synchronized (SnakeAndLadderBoard.class) {
+                if(snakeAndLadderBoardInstance==null) {
+                    snakeAndLadderBoardInstance = new SnakeAndLadderBoard(size, noOfSnakes, noOfLadders);
+                }
+            }
+        }
+        return snakeAndLadderBoardInstance;
     }
 
     private void initializeSnakeAndLadderOnBoard(int noOfSnakes, int noOfLadders) {

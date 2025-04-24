@@ -38,7 +38,7 @@ public class SnakeAndLadderGame implements BoardGames {
                 break;
             }
         }
-        snakeAndLadderBoard = new SnakeAndLadderBoard(boardSize, noOfSnakes, noOfLadders);
+        snakeAndLadderBoard = SnakeAndLadderBoard.getSnakeAndLadderBoardInstance(boardSize, noOfSnakes, noOfLadders);
         dice = new Dice(getNoOfDice());
         players = new LinkedList<>();
         initializePlayers();
