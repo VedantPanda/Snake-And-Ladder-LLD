@@ -10,7 +10,7 @@ public class SnakeAndLadderBoard {
 
     private final Cell[][] board;
 
-    public static SnakeAndLadderBoard snakeAndLadderBoardInstance;
+    public static volatile SnakeAndLadderBoard snakeAndLadderBoardInstance;
 
     private SnakeAndLadderBoard(int size, int noOfSnakes, int noOfLadders) {
         board = new Cell[size][size];
